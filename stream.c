@@ -41,7 +41,7 @@ void stream_close(STREAM * stream)
 int64 stream_reserve(STREAM * stream, int64 size)
 {
   if (size <= 0) {
-    return;
+    return -1;
   }
 
   int64 newsize = stream->capacity + size;
