@@ -1,28 +1,32 @@
 #ifndef _SERIALIZE_H
 #define _SERIALIZE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
 #include "stream.h"
 
 #ifndef _SERIALIZE_FUNCTION_CALLS // We make full function calls for one-liner
 #define _SERIALIZE_MACROS // We use inline code with macros
 #endif /* _SERIALIZE_FUNCTION_CALLS */
 
-/*
-* The following functions allow you to serialize/deserialize primitive data types like
-* integers, floats to/from byte streams. Strings can also be writting or read, but it
-* takes a little more effort.
-* Note:
-* If you use the standart macros, some of them might not represent a result value.
-* Examples of that would be the string serialize functions.
-*/
+  /*
+  * The following functions allow you to serialize/deserialize primitive data types like
+  * integers, floats to/from byte streams. Strings can also be writting or read, but it
+  * takes a little more effort.
+  * Note:
+  * If you use the standart macros, some of them might not represent a result value.
+  * Examples of that would be the string serialize functions.
+  */
 
-/*******************/
-/* Signed integers */
-/*******************/
+  /*******************/
+  /* Signed integers */
+  /*******************/
 
-/*
-* Writes signed integer values to a stream.
-*/
+  /*
+  * Writes signed integer values to a stream.
+  */
 
 #ifdef _SERIALIZE_MACROS
 #define serialize_int8(stream, value) \
@@ -43,10 +47,10 @@
   void serialize_int64(STREAM* stream, int64 value);
 #endif /* _SERIALIZE_MACROS */
 
-/*
-* Reads signed integer values from a stream.
-* Returns 1 on success, 0 on failure.
-*/
+  /*
+  * Reads signed integer values from a stream.
+  * Returns 1 on success, 0 on failure.
+  */
 
 #ifdef _SERIALIZE_MACROS
 #define deserialize_int8(stream, out) \
@@ -67,17 +71,17 @@
   int32 deserialize_int64(STREAM* stream, int64* out);
 #endif /* _SERIALIZE_MACROS */
 
-/********************/
-/* /Signed integers */
-/********************/
+  /********************/
+  /* /Signed integers */
+  /********************/
 
-/*********************/
-/* Unsigned integers */
-/*********************/
+  /*********************/
+  /* Unsigned integers */
+  /*********************/
 
-/*
-* Writes unsigned integer values to a stream.
-*/
+  /*
+  * Writes unsigned integer values to a stream.
+  */
 
 #ifdef _SERIALIZE_MACROS
 #define serialize_uint8(stream, value) \
@@ -98,10 +102,10 @@
   void serialize_uint64(STREAM* stream, uint64 value);
 #endif /* _SERIALIZE_MACROS */
 
-/*
-* Reads unsigned integer values from a stream.
-* Returns 1 on success, 0 on failure.
-*/
+  /*
+  * Reads unsigned integer values from a stream.
+  * Returns 1 on success, 0 on failure.
+  */
 
 #ifdef _SERIALIZE_MACROS
 #define deserialize_uint8(stream, out) \
@@ -122,17 +126,17 @@
   int32 deserialize_uint64(STREAM* stream, uint64* out);
 #endif /* _SERIALIZE_MACROS */
 
-/**********************/
-/* /Unsigned integers */
-/**********************/
+  /**********************/
+  /* /Unsigned integers */
+  /**********************/
 
-/******************/
-/* Floating point */
-/******************/
+  /******************/
+  /* Floating point */
+  /******************/
 
-/*
-* Writes floating point numbers to a stream.
-*/
+  /*
+  * Writes floating point numbers to a stream.
+  */
 
 #ifdef _SERIALIZE_MACROS
 #define serialize_float(stream, value) \
@@ -145,10 +149,10 @@
   void serialize_double(STREAM* stream, double value);
 #endif /* _SERIALIZE_MACROS */
 
-/*
-* Reads floating point numbers from a stream.
-* Returns 1 on success, 0 on failure.
-*/
+  /*
+  * Reads floating point numbers from a stream.
+  * Returns 1 on success, 0 on failure.
+  */
 
 #ifdef _SERIALIZE_MACROS
 #define deserialize_float(stream, out) \
@@ -161,18 +165,18 @@
   int32 deserialize_double(STREAM* stream, double* out);
 #endif /* _SERIALIZE_MACROS */
 
-/*******************/
-/* /Floating point */
-/*******************/
+  /*******************/
+  /* /Floating point */
+  /*******************/
 
-/**********/
-/* String */
-/**********/
+  /**********/
+  /* String */
+  /**********/
 
-/*
-* Writes character sequences to a stream.
-* The null-terminator is also written to the stream.
-*/
+  /*
+  * Writes character sequences to a stream.
+  * The null-terminator is also written to the stream.
+  */
 
 #ifdef _SERIALIZE_MACROS
 #define serialize_cstring(stream, value) \
@@ -225,5 +229,9 @@ do { \
 /***********/
 /* /String */
 /***********/
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* _SERIALIZE_H */

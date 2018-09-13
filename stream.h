@@ -1,6 +1,10 @@
 #ifndef _STREAM_H
 #define _STREAM_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
 #include "types.h"
 
 struct stream_t;
@@ -138,5 +142,9 @@ int64 stream_seek(STREAM* stream, int64 pos);
 #define _copy(src, dest) stream_copy(src, dest)
 #define _seek(stream, pos) stream_set_pos(stream, pos)
 #endif /* _STREAM_MACROS */
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
 
 #endif /* _STREAM_H */
