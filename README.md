@@ -8,7 +8,7 @@
 STREAM stream;
 
 #### Initialize
-stream_init(&stream , 0)                            // (stream, capacity)
+stream_init(&stream , 0)                            # (stream, capacity)
 
 _init(&stream, 0)                                   // Macro
 
