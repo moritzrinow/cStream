@@ -1,0 +1,208 @@
+#include "stream.h"
+#include <string.h>
+
+static int64 write_space_left(STREAM* stream);
+static int64 read_space_left(STREAM* stream);
+static int64 capacity_left(STREAM* stream);
+static void stream_resize(STREAM* stream, int64 size);
+
+void stream_init(STREAM * stream, int64 capac)
+{
+  if (capac > 0) { // Reserve
+    stream->data = (char*)malloc(capac);
+    stream->capacity = capac;
+  }
+  else { // Dont reserve
+    stream->capacity = 0;
+    stream->data = NULL;
+  }
+
+  stream->length = 0;
+  stream->position = 0;
+}
+
+void stream_close(STREAM * stream)
+{
+  if (stream->capacity > 0) {
+    free(stream->data);
+  }
+  stream->data = NULL;
+  stream->capacity = 0;
+  stream->length = 0;
+  stream->position = 0;
+}
+
+int64 stream_reserve(STREAM * stream, int64 size)
+{
+  if (size <= 0) {
+    return;
+  }
+
+  int64 newsize = stream->capacity + size;
+  stream_resize(stream, newsize);
+  return newsize;
+}
+
+int64 stream_write(STREAM * stream, char * buffer, int64 count, int64 offset)
+{
+  int64 result = 0;
+
+  int64 space_left = write_space_left(stream);
+  if (space_left < count) {
+    stream_resize(stream, (stream->capacity + (count - space_left)));
+  }
+
+  char* dest = &(stream->data[stream->position]);
+  char* source = &buffer[offset];
+  memcpy(dest, source, count);
+  stream->position += count;
+  stream->length += count;
+  result = count;
+
+  return result;
+}
+
+void stream_write_byte(STREAM * stream, char value)
+{
+  stream_write(stream, &value, 1, 0);
+}
+
+int64 stream_write_str(STREAM * stream, const char * str)
+{
+  int32 len = _mbstrlen(str) + 1;
+  return stream_write(stream, str, len, 0);
+}
+
+int64 stream_insert(STREAM * stream, char * buffer, int64 count, int64 offset)
+{
+  int64 result = 0;
+
+  int64 space_left = capacity_left(stream);
+  if (space_left < count) {
+    stream_resize(stream, (stream->capacity + (count - space_left)));
+  }
+
+  char* src = &(stream->data[stream->position]);
+
+  // Copy data from pos to end into temp buffer
+  int64 read_spc = read_space_left(stream);
+  char* copy = (char*)malloc(read_spc);
+  memcpy(copy, src, read_spc);
+
+  // Move data
+  char* move_dest = &(stream->data[stream->position + count]);
+  memcpy(move_dest, copy, read_spc);
+  
+  // Insert input buffer at pos
+  memcpy(src, &buffer[offset], count);
+
+  stream->position += count;
+  stream->length += count;
+  result = count;
+  free(copy);
+
+  return result;
+}
+
+void stream_insert_byte(STREAM * stream, char value)
+{
+  stream_insert(stream, &value, 1, 0);
+}
+
+int64 stream_insert_str(STREAM * stream, const char * str)
+{
+  int32 len = _mbstrlen(str) + 1;
+  return stream_insert(stream, str, len, 0);
+}
+
+int64 stream_read(STREAM * stream, char * buffer, int64 count, int64 offset)
+{
+  int64 result = 0;
+
+  int64 space_left = read_space_left(stream);
+  if (space_left == 0) {
+    return -1;
+  }
+  if (space_left > count) {
+    space_left = count;
+  }
+
+  char* dest = &buffer[offset];
+  char* source = &(stream->data[stream->position]);
+
+  memcpy(dest, source, space_left);
+  stream->position += space_left;
+  result = space_left;
+
+  return result;
+}
+
+int32 stream_read_byte(STREAM * stream)
+{
+  int32 result = 0;
+
+  int64 space_left = read_space_left(stream);
+  if (space_left == 0) {
+    return -1;
+  }
+  
+  return (int32)stream->data[stream->position++];
+}
+
+void stream_clear(STREAM * stream)
+{
+  memset(stream->data, 0, stream->capacity);
+  stream->length = 0;
+  stream->position = 0;
+}
+
+int32 stream_copy(STREAM* src, STREAM* dest)
+{
+  return stream_write(dest, src->data, src->length, 0) > 0;
+}
+
+int64 stream_set_pos(STREAM* stream, int64 pos)
+{
+  if (pos < 0 || pos > stream->length) {
+    return -1;
+  }
+
+  stream->position = pos;
+  return stream->position;
+}
+
+int64 stream_seek(STREAM* stream, int64 pos)
+{
+  return stream_set_pos(stream, pos);
+}
+
+static int64 write_space_left(STREAM* stream)
+{
+  return stream->capacity - stream->position;
+}
+
+static int64 read_space_left(STREAM* stream)
+{
+  return stream->length - stream->position;
+}
+
+static int64 capacity_left(STREAM* stream)
+{
+  return stream->capacity - stream->length;
+}
+
+static void stream_resize(STREAM * stream, int64 size)
+{
+  if (size < stream->capacity) {
+    return;
+  }
+
+  if (stream->capacity > 0) {
+    stream->data = (char*)realloc(stream->data, size);
+  }
+  else {
+    stream->data = (char*)malloc(size);
+  }
+
+  stream->capacity = size;
+}
