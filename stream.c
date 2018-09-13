@@ -1,9 +1,15 @@
 #include "stream.h"
 #include <string.h>
 
-static int64 write_space_left(STREAM* stream);
-static int64 read_space_left(STREAM* stream);
-static int64 capacity_left(STREAM* stream);
+#define write_space_left(stream) \
+  (stream->capacity - stream->position)
+
+#define read_space_left(sream) \
+  (stream->length - stream->position)
+
+#define capacity_left(stream) \
+  (stream->capacity - stream->length)
+
 static void stream_resize(STREAM* stream, int64 size);
 
 void stream_init(STREAM * stream, int64 capac)
@@ -174,21 +180,6 @@ int64 stream_set_pos(STREAM* stream, int64 pos)
 int64 stream_seek(STREAM* stream, int64 pos)
 {
   return stream_set_pos(stream, pos);
-}
-
-static int64 write_space_left(STREAM* stream)
-{
-  return stream->capacity - stream->position;
-}
-
-static int64 read_space_left(STREAM* stream)
-{
-  return stream->length - stream->position;
-}
-
-static int64 capacity_left(STREAM* stream)
-{
-  return stream->capacity - stream->length;
 }
 
 static void stream_resize(STREAM * stream, int64 size)
