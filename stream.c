@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "stream.h"
 #include <string.h>
 
@@ -41,7 +43,7 @@ void stream_close(STREAM * stream)
 int64 stream_reserve(STREAM * stream, int64 size)
 {
   if (size <= 0) {
-    return -1;
+    return;
   }
 
   int64 newsize = stream->capacity + size;
@@ -75,7 +77,7 @@ void stream_write_byte(STREAM * stream, char value)
 
 int64 stream_write_str(STREAM * stream, const char * str)
 {
-  int32 len = _mbstrlen(str) + 1;
+  int32 len = strlen(str) + 1;
   return stream_write(stream, str, len, 0);
 }
 
@@ -117,7 +119,7 @@ void stream_insert_byte(STREAM * stream, char value)
 
 int64 stream_insert_str(STREAM * stream, const char * str)
 {
-  int32 len = _mbstrlen(str) + 1;
+  int32 len = strlen(str) + 1;
   return stream_insert(stream, str, len, 0);
 }
 
