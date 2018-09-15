@@ -20,7 +20,8 @@ Open the terminal and type:
 Have not added a way to build binaries for Windows yet...
 Just add the source files to your VS Solution/Project.
 
-### Using streams
+
+## Using streams
 
 #### The structure
 STREAM stream;
