@@ -1,6 +1,23 @@
 # cStream
 
-## C byte-stream and serialization utils
+C byte-stream and serialization utils
+
+## Content
+* [Build] (#build)
+* [Usage] (#using-streams)
+
+## Build
+
+### Linux
+Open the terminal and type:
+
+"make" to install cStream
+
+"make clean" to uninstall cStream
+
+### Windows
+Have not added a way to build binaries for Windows yet...
+Just add the source files to your VS Solution/Project.
 
 ### Using streams
 
