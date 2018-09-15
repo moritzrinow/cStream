@@ -16,13 +16,13 @@ HEADERS_TO_COPY=$(SRC)cStream.h $(SRC)stream.h $(SRC)serialize.h
 
 all: install	
 
-install: create_directories create_libs create_executale copy_headers
+install: create_directories create_libs create_executable copy_headers
 	@echo "cStream installed."
 	@echo "Include: $(PROJ)$(INCLUDE)"
 	@echo "Lib: $(PROJ)$(BIN)libcStream"
 	@echo "Test: $(PROJ)$(BIN)test"
 
-create_executale: test
+create_executable: test
 	@echo "Created test executable."
 
 create_libs: libcStream.a
