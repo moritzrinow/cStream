@@ -17,7 +17,7 @@ Open the terminal and type:
 "make clean" to uninstall cStream
 
 ### Windows
-Have not added a way to build binaries for Windows yet...
+I have not added a way to build binaries for Windows yet...
 Just add the source files to your VS Solution/Project.
 
 
