@@ -71,4 +71,4 @@ stream_close(&stream)                               // (stream)
 
 _close                                              // Macro
 
-##### The macros are available if you define _STREAM_MACROS before including stream.h
+##### The macros are available if you define _STREAM_MACROS before including cStream.h
