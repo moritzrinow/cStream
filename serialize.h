@@ -5,7 +5,10 @@
 extern "C" {
 #endif /* __cplusplus */
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "stream.h"
+#include <string.h>
 
 #ifndef _SERIALIZE_FUNCTION_CALLS // We make full function calls for one-liner
 #define _SERIALIZE_MACROS // We use inline code with macros
@@ -181,13 +184,13 @@ extern "C" {
 #ifdef _SERIALIZE_MACROS
 #define serialize_cstring(stream, value) \
 do { \
-  int32 length = _mbstrlen(value) + 1; \
+  int32 length = strlen(value) + 1; \
   stream_write(stream, value, length, 0); \
 } while(0)
 
 #define serialize_string(stream, value) \
 do { \
-  int32 length = _mbstrlen(value) + 1; \
+  int32 length = strlen(value) + 1; \
   stream_write(stream, value, length, 0); \
 } while(0)
 #else

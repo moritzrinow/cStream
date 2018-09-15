@@ -104,13 +104,13 @@ int32 deserialize_double(STREAM * stream, double * out)
 
 void serialize_cstring(STREAM * stream, const char * value)
 {
-  int32 length = _mbstrlen(value) + 1;
+  int32 length = strlen(value) + 1;
   stream_write(stream, value, length, 0);
 }
 
 void serialize_string(STREAM * stream, char * value)
 {
-  int32 length = _mbstrlen(value) + 1;
+  int32 length = strlen(value) + 1;
   stream_write(stream, value, length, 0);
 }
 
