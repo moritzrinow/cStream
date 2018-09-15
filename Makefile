@@ -2,7 +2,7 @@
 
 # Compiler options
 CC=gcc
-CFLAGS=-c -g -w
+CFLAGS=-c -w
 LDFLAGS=
 
 # Directories
