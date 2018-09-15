@@ -11,18 +11,18 @@ typedef struct {
 
 void serialize_person(STREAM* stream, const PERSON* p)
 {
-	serialize_string(&stream, p->name);
-	serialize_int32(&stream, p->age);
-	serialize_float(&stream, p->height);
-	serialize_float(&stream, p->weight);
+	serialize_string(stream, p->name);
+	serialize_int32(stream, p->age);
+	serialize_float(stream, p->height);
+	serialize_float(stream, p->weight);
 }
 
 void deserialize_person(STREAM* stream, PERSON* p)
 {
-	deserialize_string(&stream, p->name, PERSON_NAME_LEN);
-	deserialize_int32(&stream, &p->age);
-	deserialize_float(&stream, &p->height);
-	deserialize_float(&stream, &p->weight);
+	deserialize_string(stream, p->name, PERSON_NAME_LEN);
+	deserialize_int32(stream, &p->age);
+	deserialize_float(stream, &p->height);
+	deserialize_float(stream, &p->weight);
 }
 
 int32 main(int32 argc, char** argv)
