@@ -4,9 +4,9 @@ C byte-stream and serialization utils
 
 ## Content
 
-[Build] (build)
+[Build] (##build)
 
-[Usage] (using-streams)
+[Usage] (##using-streams)
 
 ## Build
 
