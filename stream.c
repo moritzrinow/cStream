@@ -1,5 +1,3 @@
-#define _CRT_SECURE_NO_WARNINGS
-
 #include "stream.h"
 
 #define _CRT_SECURE_NO_WARNINGS
