@@ -7,7 +7,7 @@
 #define write_space_left(stream) \
   (stream->capacity - stream->position)
 
-#define read_space_left(sream) \
+#define read_space_left(stream) \
   (stream->length - stream->position)
 
 #define capacity_left(stream) \
