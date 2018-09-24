@@ -12,7 +12,7 @@ BIN=bin/
 OBJ=obj/
 INCLUDE=include/
 
-HEADERS_TO_COPY=$(SRC)cStream.h $(SRC)stream.h $(SRC)serialize.h
+HEADERS_TO_COPY=$(SRC)cStream.h $(SRC)stream.h $(SRC)serialize.h $(SRC)types.h
 
 all: install	
 
