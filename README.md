@@ -9,8 +9,10 @@ C byte-stream and serialization utils
 
 ## Build
 
+Clone the repository with git...
+
 ### Linux
-Open the terminal and type:
+Open the terminal in the repo directory and type:
 
 "make" to install cStream
 
