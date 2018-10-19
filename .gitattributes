@@ -1,2 +1,2 @@
 * linguist-vendored
-*.c linguist-vendored=false
+*.c *.h *Makefile linguist-vendored=false
