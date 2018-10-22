@@ -46,7 +46,7 @@ int32 main(int32 argc, char** argv)
 	// Deserialize
     
 	PERSON pOut;
-    stream_rewind(&stream); // Reset the streams position
+    	stream_rewind(&stream); // Reset the streams position
 	deserialize_person(&stream, &pOut);
     
 	// Close stream
