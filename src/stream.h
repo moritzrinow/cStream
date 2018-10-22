@@ -124,6 +124,12 @@ int64 stream_set_pos(STREAM* stream, int64 pos);
 int64 stream_seek(STREAM* stream, int64 pos);
 
 /*
+* Sets the position of @stream to 0.
+* Returns the new position of the stream or -1 on failure.
+*/
+int64 stream_rewind(STREAM* stream);
+
+/*
 * Short macros for shortness.
 */
 #ifdef _STREAM_MACROS
@@ -141,6 +147,7 @@ int64 stream_seek(STREAM* stream, int64 pos);
 #define _clear(stream) stream_clear(stream)
 #define _copy(src, dest) stream_copy(src, dest)
 #define _seek(stream, pos) stream_set_pos(stream, pos)
+#define _rewind(stream) stream_rewind(stream)
 #endif /* _STREAM_MACROS */
 
 #ifdef __cplusplus

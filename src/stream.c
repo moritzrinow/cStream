@@ -82,7 +82,7 @@ int64 stream_write_str(STREAM * stream, const char * str)
   return stream_write(stream, str, len, 0);
 }
 
-int64 stream_insert(STREAM * stream, char * buffer, int64 count, int64 offset)
+int64 stream_insert(STREAM * stream, char* buffer, int64 count, int64 offset)
 {
   int64 result = 0;
 
@@ -92,23 +92,19 @@ int64 stream_insert(STREAM * stream, char * buffer, int64 count, int64 offset)
   }
 
   char* src = &(stream->data[stream->position]);
-
-  // Copy data from pos to end into temp buffer
+  char* move_dest = &(stream->data[stream->position + count]);
   int64 read_spc = read_space_left(stream);
-  char* copy = (char*)malloc(read_spc);
-  memcpy(copy, src, read_spc);
 
   // Move data
-  char* move_dest = &(stream->data[stream->position + count]);
-  memcpy(move_dest, copy, read_spc);
-  
+  memmove(move_dest, src, read_spc);
+
   // Insert input buffer at pos
   memcpy(src, &buffer[offset], count);
 
+  // Update position and length
   stream->position += count;
   stream->length += count;
   result = count;
-  free(copy);
 
   return result;
 }
@@ -183,6 +179,11 @@ int64 stream_set_pos(STREAM* stream, int64 pos)
 int64 stream_seek(STREAM* stream, int64 pos)
 {
   return stream_set_pos(stream, pos);
+}
+
+int64 stream_rewind(STREAM * stream)
+{
+  return stream_set_pos(stream, 0);
 }
 
 static void stream_resize(STREAM * stream, int64 size)
